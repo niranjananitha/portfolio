@@ -1,0 +1,121 @@
+"use client";
+import { useParams } from 'next/navigation';
+import { motion } from 'framer-motion';
+
+interface ProjectDetail {
+  title: string;
+  subtitle?: string;
+  year?: string;
+  description?: string;
+  technologies?: string[];
+  stats?: Array<{ label: string; value: string }>;
+  features?: string[];
+  highlights?: string[];
+  icon?: string;
+}
+
+const projectDetails: Record<string, ProjectDetail> = {
+  'ai-powered-plant-disease-detection': {
+    title: 'AI-Powered Plant Disease Detection',
+    subtitle: 'Deep Learning for Plant Health',
+    year: '2024',
+    description: 'Real-time plant disease detection using TensorFlow.js',
+    technologies: ['TensorFlow.js', 'Next.js', 'Computer Vision'],
+    stats: [
+      { label: 'Accuracy', value: '92.4%' }
+    ],
+    features: [
+      'Browser-based inference',
+      'Mobile-first design',
+      'Multi-class detection',
+      'Offline capabilities'
+    ],
+    highlights: [
+      'Achieved 92.4% accuracy on validation set',
+      'Optimized for mobile devices and low bandwidth',
+      'Supports multiple plant species',
+      'Real-time detection feedback'
+    ],
+    icon: '🌿'
+  },
+  'ai-powered-automation-agent': {
+    title: 'AI-Powered Automation Agent',
+    subtitle: 'Automate web tasks with AI',
+    year: '2025',
+    description: 'Developed an AI agent to automate web tasks like online shopping with 97.45% confidence rate.',
+    technologies: ['DeepSeek-R1', 'Gemini', 'Google API'],
+    stats: [
+      { label: 'Confidence', value: '97.45%' },
+      { label: 'Processing', value: 'Real-time' }
+    ],
+    features: [
+      'Web task automation',
+      'Real-time data extraction',
+      'Smart task routing',
+      'Cloud compatibility',
+      'API integration'
+    ],
+    highlights: [
+      'Automates online shopping and more',
+      'Integrates with Google API',
+      'Real-time data processing'
+    ],
+    icon: '🤖'
+  },
+  'isl': {
+    title: 'Speech to ISL Translator',
+    subtitle: 'AI for Accessibility',
+    year: '2024',
+    description: 'Developed an AI tool to convert spoken language into Indian Sign Language gesture videos.',
+    technologies: ['Python', 'Google Translate API', 'NLP'],
+    stats: [
+      { label: 'Translation', value: 'Real-time' },
+      { label: 'Gestures', value: 'ISL' }
+    ],
+    features: [
+      'Speech-to-text conversion',
+      'NLP preprocessing',
+      'Real-time gesture mapping',
+      'Video generation',
+      'Accessibility focus'
+    ],
+    highlights: [
+      'Empowers hearing-impaired users',
+      'Real-time ISL video generation'
+    ],
+    icon: '🤟'
+  }
+};
+
+export default function ProjectDetailPage() {
+  const params = useParams();
+  const slug = params?.title as string;
+  const projectSlug = slug?.toLowerCase().replace(/%26|&/g, 'and').replace(/[^a-z0-9-]/g, '');
+
+  const project = projectDetails[projectSlug];
+  if (!project) {
+    return <div className="min-h-screen flex items-center justify-center text-gray-300">Project not found.</div>;
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black py-20 px-6 flex flex-col items-center">
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+        className="bg-gray-900 bg-opacity-80 rounded-xl shadow-xl p-8 max-w-xl w-full"
+      >
+        <div className="flex justify-between w-full mb-2">
+          <h2 className="text-2xl font-bold text-purple-300">{project.title}</h2>
+          <span className="text-gray-400 font-semibold">{project.year}</span>
+        </div>
+        <div className="text-sm text-teal-300 mb-4 font-medium">{project.subtitle}</div>
+        <ul className="list-disc pl-5 space-y-2 text-gray-200">
+          {project.highlights?.map((point, i) => (
+            <li key={i}>{point}</li>
+          ))}
+        </ul>
+      </motion.div>
+    </div>
+  );
+}

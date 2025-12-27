@@ -1,0 +1,116 @@
+"use client";
+import { motion } from "framer-motion";
+import Particles from "@tsparticles/react";
+import type { ISourceOptions } from "@tsparticles/engine";
+
+export default function Home() {
+  const particlesOptions: ISourceOptions = {
+    background: { color: { value: "transparent" } },
+    fpsLimit: 60,
+    interactivity: {
+      events: { 
+        onHover: { enable: true, mode: "grab" },
+        onClick: { enable: true, mode: "push" }
+      },
+      modes: { 
+        grab: { distance: 140, links: { opacity: 0.5 } },
+        push: { quantity: 4 }
+      },
+    },
+    particles: {
+      color: { value: "#64ffda" },
+      links: { 
+        enable: true, 
+        color: "#64ffda",
+        distance: 150,
+        opacity: 0.2
+      },
+      move: { 
+        enable: true, 
+        speed: 1,
+        direction: "none",
+        random: true,
+        straight: false,
+        outModes: "out"
+      },
+      number: { value: 50 },
+      opacity: { value: 0.3 },
+      shape: { type: "circle" },
+      size: { value: 2 },
+    },
+  };
+
+  return (
+    <div className="relative min-h-screen bg-[#0a192f] overflow-hidden">
+      <Particles id="tsparticles" options={particlesOptions} className="absolute inset-0" />
+
+      <nav className="absolute top-0 right-0 flex justify-end items-center px-10 py-6 z-20 w-full">
+        <div className="text-[#64ffda] text-xl font-bold absolute left-10">NIRANJAN</div>
+        <ul className="flex gap-8 text-gray-400 font-medium">
+          <li>
+            <a href="/" className="hover:text-[#64ffda] transition">
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="/projects" className="hover:text-[#64ffda] transition">
+              Projects
+            </a>
+          </li>
+          <li>
+            <a href="/skills" className="hover:text-[#64ffda] transition">
+              Skills
+            </a>
+          </li>
+          <li>
+            <a href="/contact" className="hover:text-[#64ffda] transition">
+              Contact
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <main className="relative z-10 flex flex-col justify-center min-h-screen px-20">
+        <div className="max-w-2xl">
+          <motion.h2
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="text-[#64ffda] text-xl font-medium mb-6"
+          >
+            About Me
+          </motion.h2>
+          
+          <motion.div
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="space-y-4 text-gray-300"
+          >
+            <p>Pre-final year AI/ML student with hands-on experience in computer vision and deep learning</p>
+            <p>Led 3 ML projects with 85-92% accuracy</p>
+            <p>Passionate about building smart, usable AI solutions</p>
+          </motion.div>
+
+          <motion.h1
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="text-gray-400 text-4xl mt-8 font-bold leading-relaxed"
+          >
+            AI/ML Engineer | Computer Vision & Deep Learning Specialist
+          </motion.h1>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.8 }}
+          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-gray-400"
+        >
+          Scroll
+        </motion.div>
+      </main>
+    </div>
+  );
+}

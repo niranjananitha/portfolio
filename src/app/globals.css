@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+:root {
+  /* Deep Space Theme */
+  /* Deep Space Theme */
+  --bg-dark: #030014;
+  --bg-card: rgba(10, 10, 30, 0.6);
+  --primary: #38bdf8;
+  /* Sky Blue - More readable, premium blue */
+  --secondary: #6366f1;
+  /* Indigo - Good gradient partner */
+  --accent: #fbbf24;
+  /* Amber/Gold - Distinct accent color */
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+}
+
+@theme inline {
+  --color-bg-dark: var(--bg-dark);
+  --color-bg-card: var(--bg-card);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  /* Utilizing a clean sans-serif */
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Utility Classes for Glassmorphism */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+}
+
+.text-gradient {
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
