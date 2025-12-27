@@ -3,6 +3,14 @@ import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
+// This function generates the static paths for the dynamic routes at build time
+export async function generateStaticParams() {
+  return Object.keys(projectDetails).map((title) => ({
+    title: title,
+  }));
+}
+
+
 interface ProjectDetail {
   title: string;
   subtitle?: string;
