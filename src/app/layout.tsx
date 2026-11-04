@@ -1,37 +1,35 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Caveat, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const serif = Source_Serif_4({
+  variable: "--nf-serif",
   subsets: ["latin"],
+  axes: ["opsz"],
+  style: ["normal", "italic"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const hand = Caveat({
+  variable: "--nf-hand",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Niranjan P N | Portfolio",
-  description: "AI/ML Engineer Portfolio showcasing projects and skills.",
-  icons: {
-    icon: "/image.jpg",
-  },
+  title: "Niranjan P N — Full Stack & ML Engineer",
+  description:
+    "Final-year AI & ML student building FastAPI + Next.js applications with explainable XGBoost models. Cognizant Hackathon finalist.",
+  icons: { icon: "/image.jpg" },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const viewport: Viewport = {
+  themeColor: "#ffffff",
+  colorScheme: "light",
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+      <body className={`${serif.variable} ${hand.variable}`}>{children}</body>
     </html>
   );
 }
