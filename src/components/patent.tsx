@@ -422,7 +422,7 @@ export function ContactActions() {
 
   return (
     <div className="contact-actions">
-      <a href="#contact" className="mail-btn" onClick={openMail}>
+      <a href="#contact" className="mail-btn" onClick={openGmail}>
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <rect x="3" y="5.5" width="18" height="13" rx="1.5" />
           <path d="m3.8 6.6 8.2 6.2 8.2-6.2" />
@@ -433,8 +433,8 @@ export function ContactActions() {
         </svg>
       </a>
       <p className="mail-alt">
-        Opens a new draft in your mail app.{" "}
-        <a href="#contact" onClick={openGmail}>Use Gmail instead</a>
+        Opens Gmail in a new tab.{" "}
+        <a href="#contact" onClick={openMail}>Use default mail app instead</a>
         <span aria-hidden="true"> · </span>
         <button type="button" onClick={copy} className="linklike">
           {copied ? "Address copied" : "Copy address"}
