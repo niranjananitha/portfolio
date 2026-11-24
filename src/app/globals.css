@@ -335,9 +335,4 @@ h2 { font-weight: 400; font-size: clamp(2.1rem, 4.6vw, 3.6rem); line-height: 1.0
 .mail-btn:hover { color: #fff; transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--ink); }
 .mail-btn:hover .arrow { transform: translateX(4px); }
 .mail-btn:active { transform: translate(4px, 4px); box-shadow: 2px 2px 0 var(--ink); }
-.mail-alt { margin-top: 18px; color: var(--ink-2); font-size: .98rem; }
-.mail-alt a, .linklike { color: var(--ink); text-decoration: underline; text-decoration-color: var(--red); text-underline-offset: .2em; }
-.linklike { font: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
-.linklike:hover { color: var(--red); }
-.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 @media (max-width: 520px) { .mail-btn { width: 100%; justify-content: space-between; padding: 18px 20px; } }

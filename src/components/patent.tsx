@@ -394,30 +394,12 @@ function address() {
 }
 
 export function ContactActions() {
-  const [copied, setCopied] = useState(false);
-
-  const openMail = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const q = `subject=${encodeURIComponent(SUBJECT)}&body=${encodeURIComponent(BODY)}`;
-    window.location.href = `mailto:${address()}?${q}`;
-  };
-
   const openGmail = (e: React.MouseEvent) => {
     e.preventDefault();
     const url =
       "https://mail.google.com/mail/?view=cm&fs=1" +
       `&to=${encodeURIComponent(address())}&su=${encodeURIComponent(SUBJECT)}&body=${encodeURIComponent(BODY)}`;
     window.open(url, "_blank", "noopener,noreferrer");
-  };
-
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(address());
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2200);
-    } catch {
-      /* clipboard blocked; the mail buttons still work */
-    }
   };
 
   return (
@@ -432,15 +414,6 @@ export function ContactActions() {
           <path d="M5 12h13m-5-5 5 5-5 5" />
         </svg>
       </a>
-      <p className="mail-alt">
-        Opens Gmail in a new tab.{" "}
-        <a href="#contact" onClick={openMail}>Use default mail app instead</a>
-        <span aria-hidden="true"> · </span>
-        <button type="button" onClick={copy} className="linklike">
-          {copied ? "Address copied" : "Copy address"}
-        </button>
-        <span className="sr-only" aria-live="polite">{copied ? "Email address copied to clipboard" : ""}</span>
-      </p>
     </div>
   );
 }
