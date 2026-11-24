@@ -151,8 +151,8 @@ h2 { font-weight: 400; font-size: clamp(2.1rem, 4.6vw, 3.6rem); line-height: 1.0
   paint-order: stroke; stroke: #fff; stroke-width: 7px; stroke-linejoin: round;
 }
 .fig-cap { text-align: center; margin-top: 8px; font-size: 1.05rem; }
-.note-biased { position: absolute; right: -8px; bottom: 8%; transform: rotate(-6deg); }
-@media (max-width: 1100px) { .note-biased { position: static; margin-top: 8px; } }
+.note-biased { position: absolute; right: -8px; bottom: 44%; transform: rotate(-6deg); }
+@media (max-width: 900px) { .note-biased { position: static; margin-top: 8px; } }
 
 .desc-intro { color: var(--ink-2); margin-bottom: 18px; font-style: italic; }
 .desc { list-style: none; border-top: 1px solid var(--hair); }
