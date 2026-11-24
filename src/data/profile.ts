@@ -2,9 +2,10 @@ export const profile = {
   name: "Niranjan P N",
   role: "Full Stack & ML Engineer",
   location: "Coimbatore, Tamil Nadu",
-  email: "niranjanperumalsamy@gmail.com",
-  phone: "+91 93448 94574",
-  phoneHref: "+919344894574",
+  // Stored in two parts and only joined in the browser when someone clicks
+  // the contact button, so the address never appears as plain text on the page.
+  emailUser: "niranjanperumalsamy",
+  emailDomain: "gmail.com",
   github: "https://github.com/niranjananitha",
   linkedin: "https://www.linkedin.com/in/niranjan-p-n-1545a2290",
   leetcode: "https://leetcode.com/u/Niranjananitha/",
@@ -84,15 +85,21 @@ export const skills: Array<{ group: string; items: string[] }> = [
   { group: "Machine learning", items: ["TensorFlow", "Keras", "Scikit-learn", "XGBoost", "SHAP"] },
   { group: "Computer vision", items: ["Image classification", "CNNs", "Transfer learning"] },
   { group: "Languages", items: ["Python", "TypeScript", "JavaScript", "Java", "SQL"] },
-  { group: "Web", items: ["React", "Next.js", "FastAPI", "Flask", "REST", "SQLAlchemy", "Alembic", "JWT auth", "Tailwind CSS"] },
+  { group: "Web", items: ["React", "Next.js", "FastAPI", "Flask", "REST APIs", "SQLAlchemy", "Alembic", "JWT auth", "Firebase", "Tailwind CSS"] },
   { group: "Data & testing", items: ["MySQL", "SQLite", "Firebase", "pytest", "Pandas", "NumPy", "Matplotlib"] },
-  { group: "Tools & cloud", items: ["AWS", "Azure", "Vercel", "GitHub", "Postman", "Google Colab", "Claude Code", "Gemini"] },
+  { group: "Tools & cloud", items: ["AWS", "Azure", "Vercel", "GitHub", "Postman", "Google Colab", "Claude Code", "Gemini", "Google Stitch"] },
 ];
 
 export const timeline = [
-  { date: "Jan 2026", title: "Deloitte Australia Data Analytics Job Simulation", note: "Forage" },
-  { date: "Jun 2025", title: "Microsoft Azure Fundamentals", note: "Certification" },
-  { date: "Feb 2025", title: "AWS Cloud Practitioner Essentials", note: "Certification" },
-  { date: "Aug 2024", title: "Design patent: baby chair with airbag", note: "Child safety" },
-  { date: "Sep 2023", title: "B.E. Artificial Intelligence & Machine Learning", note: "Sri Krishna College of Technology, CGPA 7.15, graduating May 2027" },
+  { date: "2026", kind: "Hackathon", title: "Cognizant Hackathon, finalist", note: "Medical equipment failure prediction" },
+  { date: "2026", kind: "Hackathon", title: "INDUSTRI AI Hackathon, IIT Madras", note: "Real-time credit risk system, built in 24 hours" },
+  { date: "Jan 2026", kind: "Simulation", title: "Deloitte Australia Data Analytics Job Simulation", note: "Forage" },
+  { date: "Jun 2025", kind: "Certificate", title: "Microsoft Azure Fundamentals", note: "Microsoft" },
+  { date: "Feb 2025", kind: "Certificate", title: "AWS Cloud Practitioner Essentials", note: "Amazon Web Services" },
+  { date: "Aug 2024", kind: "Patent", title: "Design patent granted: baby chair with airbag", note: "Child safety" },
+  { date: "Sep 2023", kind: "Education", title: "B.E. Artificial Intelligence & Machine Learning", note: "Sri Krishna College of Technology, CGPA 7.15, graduating May 2027" },
 ];
+
+/* Patent certificate photos. Drop files into /public/patent/ and list them
+   here; the patent section shows them beside the drawing. */
+export const patentImages: Array<{ src: string; alt: string; width: number; height: number }> = [];

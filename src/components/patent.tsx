@@ -1,8 +1,8 @@
 "use client";
 
-import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useInView, useReducedMotion, useScroll, useSpring } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import type { projects } from "@/data/profile";
+import { profile, type projects } from "@/data/profile";
 
 const ease = [0.22, 0.7, 0.2, 1] as const;
 
@@ -370,6 +370,159 @@ export function WorkList({ items }: { items: Project[] }) {
           </article>
         );
       })}
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Reading progress: a thin red rule under the masthead.               */
+/* ------------------------------------------------------------------ */
+export function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 140, damping: 30, mass: 0.3 });
+  return <motion.div className="progress" style={{ scaleX }} aria-hidden="true" />;
+}
+
+/* ------------------------------------------------------------------ */
+/* Contact: the address is only assembled in the browser, on click.    */
+/* ------------------------------------------------------------------ */
+const SUBJECT = "Hello from your portfolio";
+const BODY = "Hi Niranjan,\n\nI came across your portfolio and would like to talk about ";
+
+function address() {
+  return `${profile.emailUser}@${profile.emailDomain}`;
+}
+
+export function ContactActions() {
+  const [copied, setCopied] = useState(false);
+
+  const openMail = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const q = `subject=${encodeURIComponent(SUBJECT)}&body=${encodeURIComponent(BODY)}`;
+    window.location.href = `mailto:${address()}?${q}`;
+  };
+
+  const openGmail = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const url =
+      "https://mail.google.com/mail/?view=cm&fs=1" +
+      `&to=${encodeURIComponent(address())}&su=${encodeURIComponent(SUBJECT)}&body=${encodeURIComponent(BODY)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(address());
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2200);
+    } catch {
+      /* clipboard blocked; the mail buttons still work */
+    }
+  };
+
+  return (
+    <div className="contact-actions">
+      <a href="#contact" className="mail-btn" onClick={openMail}>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="5.5" width="18" height="13" rx="1.5" />
+          <path d="m3.8 6.6 8.2 6.2 8.2-6.2" />
+        </svg>
+        <span>Write me an email</span>
+        <svg className="arrow" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 12h13m-5-5 5 5-5 5" />
+        </svg>
+      </a>
+      <p className="mail-alt">
+        Opens a new draft in your mail app.{" "}
+        <a href="#contact" onClick={openGmail}>Use Gmail instead</a>
+        <span aria-hidden="true"> · </span>
+        <button type="button" onClick={copy} className="linklike">
+          {copied ? "Address copied" : "Copy address"}
+        </button>
+        <span className="sr-only" aria-live="polite">{copied ? "Email address copied to clipboard" : ""}</span>
+      </p>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* FIG. 3 — the baby chair with airbag, drawn as a patent sheet.        */
+/* ------------------------------------------------------------------ */
+const CHAIR_LINES = [
+  // backrest
+  "M176 246 L154 104 Q151 82 172 82 L180 82 Q199 82 201 104 L214 246",
+  // seat
+  "M168 246 H336 Q344 246 344 254 V262 Q344 270 336 270 H168 Q160 270 160 262 V254 Q160 246 168 246 Z",
+  // legs
+  "M186 270 L138 438", "M204 270 L170 438",
+  "M318 270 L366 438", "M300 270 L334 438",
+  // footrest bar
+  "M160 362 H346",
+  // tray support
+  "M330 246 L338 214",
+  // tray
+  "M246 202 H412 Q420 202 420 208 V210 Q420 216 412 216 H246 Z",
+  // inflator module
+  "M352 216 h40 v20 h-40 Z",
+];
+const AIRBAG = "M232 198 C 214 170, 220 126, 250 112 C 280 98, 320 112, 330 140 C 340 168, 330 192, 312 200";
+const HARNESS = "M200 168 C 232 186, 250 214, 262 246";
+const FLOOR = "M100 440 H440";
+
+const CALLOUTS: Array<{ n: number; x: number; y: number; tx: number; ty: number; end?: "start" | "end" }> = [
+  { n: 102, x: 160, y: 120, tx: 96, ty: 104, end: "end" },
+  { n: 104, x: 200, y: 258, tx: 96, ty: 292, end: "end" },
+  { n: 106, x: 148, y: 400, tx: 96, ty: 404, end: "end" },
+  { n: 108, x: 290, y: 107, tx: 340, ty: 70 },
+  { n: 110, x: 236, y: 198, tx: 118, ty: 50, end: "end" },
+  { n: 112, x: 392, y: 226, tx: 452, ty: 250 },
+  { n: 114, x: 400, y: 209, tx: 452, ty: 182 },
+  { n: 116, x: 262, y: 362, tx: 256, ty: 404 },
+];
+
+export function FigureThree() {
+  const reduce = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-120px" });
+  const draw = (delay: number, dur = 0.9) => ({
+    initial: reduce ? false : { pathLength: 0 },
+    animate: inView || reduce ? { pathLength: 1 } : undefined,
+    transition: { duration: dur, delay, ease },
+  });
+
+  return (
+    <div className="fig3" ref={ref}>
+      <svg viewBox="40 30 470 430" className="chair" role="img" aria-labelledby="fig3-cap fig3-desc">
+        <desc id="fig3-desc">
+          Side view of a baby high chair. An airbag, shown inflated as a dashed outline, sits above the tray in front of
+          the child; an inflator module is mounted under the tray.
+        </desc>
+        <motion.path className="c-floor" d={FLOOR} {...draw(0, 0.6)} />
+        {CHAIR_LINES.map((d, i) => (
+          <motion.path key={i} className="c-line" d={d} {...draw(0.1 + i * 0.07)} />
+        ))}
+        <motion.path className="c-strap" d={HARNESS} {...draw(1)} />
+        <motion.path className="c-bag" d={AIRBAG} {...draw(1.3, 1.1)} />
+        <motion.g
+          initial={reduce ? false : { opacity: 0 }}
+          animate={inView || reduce ? { opacity: 1 } : undefined}
+          transition={{ duration: 0.6, delay: 1.9 }}
+        >
+          {/* hatch on the inflator */}
+          {[0, 1, 2, 3].map((i) => (
+            <path key={i} className="c-hatch" d={`M${356 + i * 9} 234 l8 -16`} />
+          ))}
+          {CALLOUTS.map((c) => (
+            <g key={c.n}>
+              <path className="t-lead" d={`M${c.x} ${c.y} Q ${(c.x + c.tx) / 2} ${c.ty + (c.y > c.ty ? 6 : -6)}, ${c.tx} ${c.ty}`} />
+              <text className="t-num" x={c.tx + (c.end === "end" ? -4 : 4)} y={c.ty} dy="0.35em" textAnchor={c.end ?? "start"}>
+                {c.n}
+              </text>
+            </g>
+          ))}
+        </motion.g>
+      </svg>
+      <p className="fig-cap" id="fig3-cap"><span className="sc">Fig. 3</span></p>
     </div>
   );
 }
